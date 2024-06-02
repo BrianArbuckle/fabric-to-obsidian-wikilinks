@@ -17,7 +17,16 @@ people_folder = os.getenv(PEOPLE_FOLDER_VAR)
 documents_folder = os.getenv(DOCUMENTS_FOLDER_VAR)
 
 # Function to get a list of people from the people folder
-def get_people_list(people_folder):
+def get_people_list(people_folder: str) -> list[str]:
+    """
+    Retrieves a list of people from the specified folder.
+
+    Args:
+        people_folder (str): The path to the folder containing the markdown files of people.
+
+    Returns:
+        list[str]: A list of people's names derived from the filenames in the given folder.
+    """
     people = []
     for filename in os.listdir(people_folder):
         if filename.endswith(".md"):
@@ -26,7 +35,17 @@ def get_people_list(people_folder):
     return people
 
 # Function to replace names in the document with Obsidian links
-def link_names_in_doc(filepath, people_list):
+def link_names_in_doc(filepath: str, people_list: list[str]) -> None:
+    """
+    Replaces names in the specified document with Obsidian links.
+
+    Args:
+        filepath (str): The path to the document where names need to be linked.
+        people_list (list[str]): A list of people's names to be linked in the document.
+
+    Returns:
+        None
+    """
     with open(filepath, 'r', encoding='utf-8') as file:
         content = file.read()
 
@@ -46,7 +65,19 @@ def link_names_in_doc(filepath, people_list):
     with open(filepath, 'w', encoding='utf-8') as file:
         file.write(content)
 
-def main():
+def main() -> None:
+    """
+    Processes all markdown documents in the 'documents_folder' by linking names from 'people_folder'.
+
+    TODO: Implement difflib for close matches, and handle cases where the first name is not unique.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+    
     people_list = get_people_list(people_folder)
 
     for doc in os.listdir(documents_folder):
@@ -54,7 +85,6 @@ def main():
             print(f"Processing {doc}")
             doc_path = os.path.join(documents_folder, doc)
             link_names_in_doc(doc_path, people_list)
-
 
 if __name__ == "__main__":
     main()

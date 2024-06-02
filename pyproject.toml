@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "md-clean-up"
+name = "wikilinker"
 version = "0.1.0"
-description = "A utility to create appropriate named links within markdown documents."
+description = "A utility to create appropriate named wikilinks within markdown documents."
 authors = ["Brian Arbuckle <brian@brianarbuckle.com>"]
 readme = "README.md"
 
